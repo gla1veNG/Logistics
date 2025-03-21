@@ -1,4 +1,5 @@
 import { AdvertClass } from 'basic'
+import { window } from '@kit.ArkUI'
 
 @Entry
 @Component
@@ -20,10 +21,18 @@ struct Start {
     this.timer = setInterval(() => {
       if (this.adObj.adTime === 0) {
         clearInterval(this.timer)
+        //销毁子窗口
+        // this.closeWin()
         return
       }
       this.adObj.adTime--
     }, 1000)
+  }
+
+  //销毁子窗口方法
+  closeWin() {
+    //1.查找要销毁的窗口再进行销毁
+    window.findWindow("ad_window").destroyWindow()
   }
 
   //页面销毁，清除定时器
@@ -38,12 +47,15 @@ struct Start {
 
       Text(this.adObj.adTime + "秒后跳过")
         .padding({ left: 10, right: 10 })
-        .margin({ top: 20, right: 20 })
+        .margin({ top: 40, right: 20 })
         .height(30)
         .fontSize(14)
         .borderRadius(15)
         .textAlign(TextAlign.Center)
         .backgroundColor($r("app.color.background_page"))
+        .onClick(() => {
+          this.closeWin()
+        })
     }
 
   }
