@@ -1,7 +1,7 @@
 import { preferences } from '@kit.ArkData';
 import { AdvertClass } from '../models/advert';
 import { JSON } from '@kit.ArkTS';
-import { XN_SETTING, XN_SETTING_AD } from '../../../../Index';
+import { TOKEN_KEY, XN_SETTING, XN_SETTING_AD } from '../../../../Index';
 
 //广告的默认配置
 export const defaultAd: AdvertClass = {
@@ -41,5 +41,21 @@ export class UserSettingClass {
     //获取广告数据
     const str = store.getSync(XN_SETTING_AD, JSON.stringify(defaultAd)) as string
     return JSON.parse(str) as AdvertClass
+  }
+
+  //存储token数据
+  setUserToken(token: string) {
+    // 获取创建的仓库
+    const store = this.getStore()
+    //给仓库存储数据
+    store.putSync(TOKEN_KEY, token)
+    //数据写入磁盘
+    store.flush()
+  }
+
+  //获取存储在首选项的token数据
+  getUserToken(): string {
+    const store = this.getStore()
+    return store.getSync(TOKEN_KEY, '') as string
   }
 }
