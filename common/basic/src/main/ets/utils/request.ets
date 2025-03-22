@@ -1,7 +1,8 @@
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from '@ohos/axios';
+import { BASE_URL } from '../constants';
 
 const service = axios.create({
-  baseURL: "",
+  baseURL: BASE_URL,
   timeout: 10000
 })
 
@@ -15,8 +16,9 @@ service.interceptors.request.use((config: InternalAxiosRequestConfig) => {
 
 
 service.interceptors.response.use((response: AxiosResponse) => {
-
-  return response;
+  if (response.status === 200) {
+    return response.data.data;
+  }
 }, (error: AxiosError) => {
   return Promise.reject(error);
 });
