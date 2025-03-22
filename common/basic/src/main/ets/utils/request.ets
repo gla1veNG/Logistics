@@ -21,17 +21,17 @@ service.interceptors.response.use((response: AxiosResponse) => {
   return Promise.reject(error);
 });
 
-class Htttp {
-  get<T>(url: string, params?: object) {
+class Http {
+  static get<T>(url: string, params?: object) {
     return service.get<null, T>(url, { params })
   }
 
-  post<T>(url: string, data?: object) {
+  static post<T>(url: string, data?: object) {
     return service.post<null, T>(url, data)
 
   }
 
-  put<T>(url: string, data?: object) {
+  static put<T>(url: string, data?: object) {
     return service.put<null, T>(url, data)
 
   }
@@ -42,4 +42,4 @@ class Htttp {
   }
 }
 
-export { Htttp }
+export { Http }
