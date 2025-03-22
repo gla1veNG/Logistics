@@ -7,6 +7,8 @@ struct Login {
     account: "",
     password: ""
   }
+  //控制loading
+  @State showLoading: boolean = false
 
   //账号与密码非空状态处理
   getFormValidate() {
@@ -18,7 +20,10 @@ struct Login {
 
   //登录方法
   submitLogin() {
-    AlertDialog.show({ message: JSON.stringify(this.accountForm) })
+    this.showLoading = true
+    setTimeout(() => {
+      this.showLoading = false
+    }, 2000)
   }
 
   @Styles
@@ -68,7 +73,17 @@ struct Login {
         .loginStyle()
       //登录按钮
       Button({ type: ButtonType.Capsule }) {
-        Text('登录')
+        Row() {
+          if (this.showLoading) {
+            LoadingProgress()
+              .width(20)
+              .height(20)
+              .color($r('app.color.white'))
+              .margin({ right: 12 })
+          }
+
+          Text('登录')
+        }
       }
       .width('100%')
       .height(50)
