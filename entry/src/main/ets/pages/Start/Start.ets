@@ -1,17 +1,17 @@
-import { AdvertClass } from 'basic'
+import { AdvertClass, UserSettingClass } from 'basic'
 import { window } from '@kit.ArkUI'
 
 @Entry
 @Component
 struct Start {
-  @State adObj: AdvertClass = {
-    showAd: false,
-    adTime: 5
-  }
+  @State adObj: AdvertClass = {} as AdvertClass
   @State timer: number = -1
 
   //页面开始加载就触发
   aboutToAppear(): void {
+    //获取本地存储的广告配置
+    const setting = new UserSettingClass(getContext())
+    this.adObj = setting.getUserAd()
     //调用倒计时方法
     this.countDown()
   }
