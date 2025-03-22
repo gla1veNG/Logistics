@@ -31,7 +31,7 @@ class Htttp {
 
   }
 
-  put<T>(ulr: string, data?: object) {
+  put<T>(url: string, data?: object) {
     return service.put<null, T>(url, data)
 
   }
