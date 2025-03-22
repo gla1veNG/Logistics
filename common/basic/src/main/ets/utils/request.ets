@@ -16,7 +16,8 @@ service.interceptors.request.use((config: InternalAxiosRequestConfig) => {
 
 
 service.interceptors.response.use((response: AxiosResponse) => {
-  if (response.status === 200) {
+  //如果状态码是200，并且业务码也是200，再返回数据的时候，直接将需要的数据从data.data中获取出来
+  if (response.status === 200 && response.data.code === 200) {
     return response.data.data;
   }
 }, (error: AxiosError) => {

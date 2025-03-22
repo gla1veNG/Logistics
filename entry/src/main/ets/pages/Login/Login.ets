@@ -1,6 +1,5 @@
 import { loginApi } from '../../api'
 import { AccountFormModel } from '../../models'
-import { router } from '@kit.ArkUI'
 
 @Entry
 @Component
@@ -26,11 +25,12 @@ struct Login {
     //调用登录接口
     try {
       const res = await loginApi(this.accountForm)
-      AlertDialog.show({ message: JSON.stringify(res) })
 
       //TODO:将token存储到本地
       //TODO:跳转到主页
-      router.pushUrl({ url: 'pages/Index' })
+      // router.pushUrl({
+      //   url: 'pages/Index'
+      // })
 
     } catch (e) {
       console.log("error", e)
