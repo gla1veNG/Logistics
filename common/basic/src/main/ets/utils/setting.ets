@@ -1,6 +1,7 @@
 import { preferences } from '@kit.ArkData';
 import { AdvertClass } from '../models/advert';
 import { JSON } from '@kit.ArkTS';
+import { XN_SETTING, XN_SETTING_AD } from '../../../../Index';
 
 //广告的默认配置
 export const defaultAd: AdvertClass = {
@@ -21,7 +22,7 @@ export class UserSettingClass {
 
   //创建仓库
   getStore() {
-    return preferences.getPreferencesSync(this.context, { name: "setting" })
+    return preferences.getPreferencesSync(this.context, { name: XN_SETTING })
   }
 
   //存储广告数据
@@ -29,7 +30,7 @@ export class UserSettingClass {
     // 获取创建的仓库
     const store = this.getStore()
     //给仓库存储数据
-    store.putSync("setting_ad", JSON.stringify(ad))
+    store.putSync(XN_SETTING_AD, JSON.stringify(ad))
     //数据写入磁盘
     store.flush()
   }
@@ -38,7 +39,7 @@ export class UserSettingClass {
   getUserAd(): AdvertClass {
     const store = this.getStore()
     //获取广告数据
-    const str = store.getSync("setting_ad", JSON.stringify(defaultAd)) as string
+    const str = store.getSync(XN_SETTING_AD, JSON.stringify(defaultAd)) as string
     return JSON.parse(str) as AdvertClass
   }
 }

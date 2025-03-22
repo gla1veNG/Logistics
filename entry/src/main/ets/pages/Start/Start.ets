@@ -22,7 +22,7 @@ struct Start {
       if (this.adObj.adTime === 0) {
         clearInterval(this.timer)
         //销毁子窗口
-        // this.closeWin()
+        this.closeWin()
         return
       }
       this.adObj.adTime--
@@ -42,7 +42,7 @@ struct Start {
 
   build() {
     Stack({ alignContent: Alignment.TopEnd }) {
-      Image($r("app.media.start"))
+      Image(this.adObj.adImage)
         .objectFit(ImageFit.Cover)
 
       Text(this.adObj.adTime + "秒后跳过")
