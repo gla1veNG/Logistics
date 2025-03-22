@@ -28,7 +28,7 @@ export default class EntryAbility extends UIAbility {
     //将广告配置存储到本地
     const setting = new UserSettingClass(this.context)
     setting.setUserAd(ad)
-    
+
     //通过广告配置决定是否显示广告
     if (ad.showAd) {
       //创建子窗口
@@ -39,7 +39,7 @@ export default class EntryAbility extends UIAbility {
       win.setUIContent("pages/Start/Start")
     }
 
-    windowStage.loadContent('pages/Index', (err) => {
+    windowStage.loadContent('pages/Login/Login', (err) => {
       if (err.code) {
         hilog.error(DOMAIN, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err));
         return;
