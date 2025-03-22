@@ -1,7 +1,25 @@
+import { AccountFormModel } from '../../models'
+
 @Entry
 @Component
 struct Login {
-  @State message: string = 'Hello World';
+  @State accountForm: AccountFormModel = {
+    account: "",
+    password: ""
+  }
+
+  //账号与密码非空状态处理
+  getFormValidate() {
+    if (this.accountForm.account && this.accountForm.password) {
+      return true
+    }
+    return false
+  }
+
+  //登录方法
+  submitLogin() {
+    AlertDialog.show({ message: JSON.stringify(this.accountForm) })
+  }
 
   @Styles
   loginStyle(){
@@ -42,10 +60,10 @@ struct Login {
       .margin({ top: 50, bottom: 50 })
 
       //账户输入框
-      TextInput({ placeholder: '请输入账号' })
+      TextInput({ placeholder: '请输入账号', text: $$this.accountForm.account })
         .loginStyle()
       //密码输入框
-      TextInput({ placeholder: '请输入密码' })
+      TextInput({ placeholder: '请输入密码', text: $$this.accountForm.password })
         .type(InputType.Password)
         .loginStyle()
       //登录按钮
@@ -54,9 +72,13 @@ struct Login {
       }
       .width('100%')
       .height(50)
-      .backgroundColor($r('app.color.primary_disabled'))
+      .backgroundColor(this.getFormValidate() ? $r('app.color.primary') : $r('app.color.primary_disabled'))
       .fontColor($r('app.color.white'))
       .margin({ top: 50 })
+      .enabled(this.getFormValidate())
+      .onClick(() => {
+        this.submitLogin()
+      })
     }
     .width('100%')
     .height('100%')
