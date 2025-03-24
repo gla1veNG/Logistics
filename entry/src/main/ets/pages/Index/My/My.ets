@@ -1,7 +1,26 @@
 import { ICard, ICardItem } from 'basic'
+import { getUserInfoApi } from '../../../api'
+import { UserInfoModel } from '../../../models'
 
 @Component
 struct My {
+  //用于保存获取到的用户信息
+  @State userInfo: UserInfoModel = {} as UserInfoModel
+
+  //调用获取用户信息接口
+  aboutToAppear(): void {
+    this.getUserInfo()
+  }
+
+  //获取用户信息方法
+  async getUserInfo() {
+    try {
+      this.userInfo = await getUserInfoApi()
+    } catch (e) {
+      console.log('error', e)
+    }
+  }
+
   build() {
     Column() {
       //用户信息
