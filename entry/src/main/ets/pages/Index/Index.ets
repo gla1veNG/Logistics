@@ -1,4 +1,8 @@
 import { TabClass } from 'basic';
+import Message from './Message/Message';
+import My from './My/My';
+import MyTask from './Task/MyTask';
+
 
 @Entry
 @Component
@@ -37,7 +41,13 @@ struct Index {
       Tabs({ barPosition: BarPosition.End, index: $$this.currentIndex }) {
         ForEach(this.tabsData, (item: TabClass) => {
           TabContent() {
-            Text(item.name)
+            if (item.name === 'task') {
+              MyTask()
+            } else if (item.name === 'message') {
+              Message()
+            } else if (item.name === 'my') {
+              My()
+            }
           }.tabBar(this.getTabBar(item))
         })
       }
@@ -46,4 +56,8 @@ struct Index {
     .height('100%')
     .width('100%')
   }
+}
+
+function Task() {
+  throw new Error('Function not implemented.');
 }
