@@ -16,6 +16,7 @@ struct My {
   async getUserInfo() {
     try {
       this.userInfo = await getUserInfoApi()
+      AlertDialog.show({ message: JSON.stringify(this.userInfo) })
     } catch (e) {
       console.log('error', e)
     }

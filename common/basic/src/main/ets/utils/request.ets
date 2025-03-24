@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from '@ohos/axios';
+import { UserSettingClass } from '.';
 import { BASE_URL } from '../constants';
 
 const service = axios.create({
@@ -8,6 +9,18 @@ const service = axios.create({
 
 // 添加请求拦截器
 service.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+
+  //token 本地首先项当中
+  const setting = new UserSettingClass(getContext())
+  //获取 token
+  const token = setting.getUserToken()
+  //如果token存在
+  if (token) {
+    //将token通过请求头发送给后台
+    config.headers.Authorization = token
+  }
+
+
   return config;
 }, (error: AxiosError) => {
 
