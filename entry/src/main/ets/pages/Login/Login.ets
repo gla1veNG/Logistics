@@ -1,6 +1,7 @@
 import { UserSettingClass } from 'basic'
 import { loginApi } from '../../api'
 import { AccountFormModel } from '../../models'
+import { router } from '@kit.ArkUI'
 
 @Entry
 @Component
@@ -31,9 +32,9 @@ struct Login {
       const setting = new UserSettingClass(getContext())
       setting.setUserToken(res)
       //TODO:跳转到主页
-      // router.pushUrl({
-      //   url: 'pages/Index'
-      // })
+      router.pushUrl({
+        url: 'pages/Index/Index'
+      })
 
     } catch (e) {
       console.log("error", e)
