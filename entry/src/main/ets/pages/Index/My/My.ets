@@ -1,3 +1,5 @@
+import { ICard, ICardItem } from 'basic'
+
 @Component
 struct My {
   build() {
@@ -99,65 +101,12 @@ struct My {
       .justifyContent(FlexAlign.SpaceBetween)
 
       //选项列表
-      Column() {
-        Row() {
-          Text('车辆信息')
-            .fontSize(16)
-            .fontWeight(400)
-            .fontColor($r('app.color.text_primary'))
-
-          Image($r('app.media.ic_btn_more'))
-            .width(24)
-            .height(24)
-        }
-        .width('100%')
-        .height(60)
-        .border({
-          width: { bottom: 1 },
-          color: $r('app.color.background_page')
-        })
-        .justifyContent(FlexAlign.SpaceBetween)
-
-        Row() {
-          Text('任务数据')
-            .fontSize(16)
-            .fontWeight(400)
-            .fontColor($r('app.color.text_primary'))
-
-          Image($r('app.media.ic_btn_more'))
-            .width(24)
-            .height(24)
-        }
-        .width('100%')
-        .height(60)
-        .border({
-          width: { bottom: 1 },
-          color: $r('app.color.background_page')
-        })
-        .justifyContent(FlexAlign.SpaceBetween)
-
-        Row() {
-          Text('系统设置')
-            .fontSize(16)
-            .fontWeight(400)
-            .fontColor($r('app.color.text_primary'))
-
-          Image($r('app.media.ic_btn_more'))
-            .width(24)
-            .height(24)
-        }
-        .width('100%')
-        .height(60)
-        .border({
-          width: { bottom: 1 },
-          color: $r('app.color.background_page')
-        })
-        .justifyContent(FlexAlign.SpaceBetween)
+      ICard() {
+        //尾随闭包
+        ICardItem({ leftText: '车辆信息' })
+        ICardItem({ leftText: '任务数据' })
+        ICardItem({ leftText: '系统设置' })
       }
-      .backgroundColor($r('app.color.white'))
-      .borderRadius(8)
-      .padding({ left: 18, right: 18 })
-      .margin({ left: 15, right: 14 })
 
     }
     .width('100%')
