@@ -1,3 +1,4 @@
+import { UserSettingClass } from 'basic'
 import { loginApi } from '../../api'
 import { AccountFormModel } from '../../models'
 
@@ -27,7 +28,8 @@ struct Login {
       const res = await loginApi(this.accountForm)
 
       //TODO:将token存储到本地
-
+      const setting = new UserSettingClass(getContext())
+      setting.setUserToken(res)
       //TODO:跳转到主页
       // router.pushUrl({
       //   url: 'pages/Index'
