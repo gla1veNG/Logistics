@@ -90,10 +90,74 @@ struct My {
       .borderRadius(8)
       .height(134)
       .padding({ top: 14, bottom: 14 })
-      .margin({ top: -50, left: 15, right: 15 })
+      .margin({
+        top: -50,
+        bottom: 15,
+        left: 15,
+        right: 15
+      })
       .justifyContent(FlexAlign.SpaceBetween)
 
       //选项列表
+      Column() {
+        Row() {
+          Text('车辆信息')
+            .fontSize(16)
+            .fontWeight(400)
+            .fontColor($r('app.color.text_primary'))
+
+          Image($r('app.media.ic_btn_more'))
+            .width(24)
+            .height(24)
+        }
+        .width('100%')
+        .height(60)
+        .border({
+          width: { bottom: 1 },
+          color: $r('app.color.background_page')
+        })
+        .justifyContent(FlexAlign.SpaceBetween)
+
+        Row() {
+          Text('任务数据')
+            .fontSize(16)
+            .fontWeight(400)
+            .fontColor($r('app.color.text_primary'))
+
+          Image($r('app.media.ic_btn_more'))
+            .width(24)
+            .height(24)
+        }
+        .width('100%')
+        .height(60)
+        .border({
+          width: { bottom: 1 },
+          color: $r('app.color.background_page')
+        })
+        .justifyContent(FlexAlign.SpaceBetween)
+
+        Row() {
+          Text('系统设置')
+            .fontSize(16)
+            .fontWeight(400)
+            .fontColor($r('app.color.text_primary'))
+
+          Image($r('app.media.ic_btn_more'))
+            .width(24)
+            .height(24)
+        }
+        .width('100%')
+        .height(60)
+        .border({
+          width: { bottom: 1 },
+          color: $r('app.color.background_page')
+        })
+        .justifyContent(FlexAlign.SpaceBetween)
+      }
+      .backgroundColor($r('app.color.white'))
+      .borderRadius(8)
+      .padding({ left: 18, right: 18 })
+      .margin({ left: 15, right: 14 })
 
     }
     .width('100%')
