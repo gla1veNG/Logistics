@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from '@ohos/axios';
 import { UserSettingClass } from '.';
 import { BASE_URL } from '../constants';
+import { promptAction, router } from '@kit.ArkUI';
 
 const service = axios.create({
   baseURL: BASE_URL,
@@ -20,7 +21,6 @@ service.interceptors.request.use((config: InternalAxiosRequestConfig) => {
     config.headers.Authorization = token
   }
 
-
   return config;
 }, (error: AxiosError) => {
 
@@ -34,6 +34,17 @@ service.interceptors.response.use((response: AxiosResponse) => {
     return response.data.data;
   }
 }, (error: AxiosError) => {
+if(error.response?.status === 401){
+  promptAction.showToast({message:'登录超时'})
+  //删除原来token
+  const setting = new UserSettingClass(getContext())
+  setting.deleteUserToken()
+
+  //重新登录
+  router.replaceUrl({
+    url:'pages/Login/Login'
+  })
+}
   return Promise.reject(error);
 });
 

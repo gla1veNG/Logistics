@@ -58,4 +58,14 @@ export class UserSettingClass {
     const store = this.getStore()
     return store.getSync(TOKEN_KEY, '') as string
   }
+
+  //删除token
+  deleteUserToken(){
+    // 获取创建的仓库
+    const store = this.getStore()
+    //删除token
+    store.deleteSync(TOKEN_KEY)
+    //数据写入磁盘
+    store.flush()
+  }
 }

@@ -28,7 +28,7 @@ struct My {
     Column() {
       //用户信息
       Column() {
-        Image(this.userInfo?.avatar)
+        Image(this.userInfo.avatar?this.userInfo.avatar:$r('app.media.ic_avatar_driver'))
           .width(67)
           .height(67)
           .borderRadius(33.5)
