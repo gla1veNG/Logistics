@@ -7,7 +7,7 @@ export interface AccountFormModel {
 //用户接口返回的数据类型
 export interface UserInfoModel {
   //头像
-  avatar: string;
+  avatar: ResourceStr;
 
   //姓名
   name: string;

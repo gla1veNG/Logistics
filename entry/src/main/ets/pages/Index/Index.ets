@@ -13,8 +13,15 @@ struct Index {
     { title: '信息', icon: $r('app.media.ic_tab_btn_mess_nor'), name: 'message' },
     { title: '我的', icon: $r('app.media.ic_tab_btn_mess_nor'), name: 'my' }
   ]
+  @Watch('updateName')
   //初始化一个变量，保存选中的TabBar
   @State currentIndex: number = 0
+
+  @Provide currentName:string='task'
+  //监听 tabbar 下标变化
+  updateName(){
+    this.currentName=this.tabsData[this.currentIndex].name
+  }
 
   //自定义tabBar的布局
   @Builder

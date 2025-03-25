@@ -6,17 +6,19 @@ import { UserInfoModel } from '../../../models'
 struct My {
   //用于保存获取到的用户信息
   @State userInfo: UserInfoModel = {} as UserInfoModel
+  @Consume
+  @Watch('getUserInfo')
+  currentName:string
 
   //调用获取用户信息接口
-  aboutToAppear(): void {
-    this.getUserInfo()
-  }
+  // aboutToAppear(): void {
+  //   this.getUserInfo()
+  // }
 
   //获取用户信息方法
   async getUserInfo() {
     try {
       this.userInfo = await getUserInfoApi()
-      AlertDialog.show({ message: JSON.stringify(this.userInfo) })
     } catch (e) {
       console.log('error', e)
     }
@@ -26,25 +28,25 @@ struct My {
     Column() {
       //用户信息
       Column() {
-        Image($r('app.media.ic_avatar_driver'))
+        Image(this.userInfo?.avatar)
           .width(67)
           .height(67)
           .borderRadius(33.5)
 
-        Text('小南')
+        Text(this.userInfo?.name)
           .fontSize(18)
           .fontWeight(600)
           .lineHeight(25)
           .margin({ top: 9, bottom: 9 })
           .fontColor($r('app.color.white'))
 
-        Text('司机编号：6666')
+        Text(`司机编号：${this.userInfo?.number}`)
           .fontSize(14)
           .fontWeight(400)
           .lineHeight(20)
           .fontColor($r('app.color.white'))
 
-        Text('手机号：6666')
+        Text(`手机号：${this.userInfo?.phone}`)
           .fontSize(14)
           .fontWeight(400)
           .lineHeight(20)
