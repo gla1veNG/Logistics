@@ -1,19 +1,26 @@
 import { ICard, ICardItem } from 'basic'
-import { getUserInfoApi } from '../../../api'
-import { UserInfoModel } from '../../../models'
+import { getUserInfoApi, getUserTaskInfoApi } from '../../../api'
+import { UserInfoModel, UserTaskInfoModel, UserTaskInfoParamsModel } from '../../../models'
 
 @Component
 struct My {
   //用于保存获取到的用户信息
   @State userInfo: UserInfoModel = {} as UserInfoModel
+  //用于保存获取到的任务数据
+  @State queryTaskParams: UserTaskInfoParamsModel = {
+    month: (new Date().getMonth() + 1).toString(),
+    year: new Date().getFullYear().toString()
+  }
+  @State userTaskInfo: UserTaskInfoModel = {} as UserTaskInfoModel
   @Consume
-  @Watch('getUserInfo')
-  currentName:string
+  @Watch('initUserInfo')
+  currentName: string
 
-  //调用获取用户信息接口
-  // aboutToAppear(): void {
-  //   this.getUserInfo()
-  // }
+  //进入 ‘我的’ 的页面就触发方法
+  initUserInfo() {
+    this.getUserInfo()
+    this.getUserTaskInfo()
+  }
 
   //获取用户信息方法
   async getUserInfo() {
@@ -24,11 +31,20 @@ struct My {
     }
   }
 
+  //获取任务数据方法
+  async getUserTaskInfo() {
+    try {
+      this.userTaskInfo = await getUserTaskInfoApi(this.queryTaskParams)
+    } catch (e) {
+      console.log('error', e)
+    }
+  }
+
   build() {
     Column() {
       //用户信息
       Column() {
-        Image(this.userInfo.avatar?this.userInfo.avatar:$r('app.media.ic_avatar_driver'))
+        Image(this.userInfo.avatar ? this.userInfo.avatar : $r('app.media.ic_avatar_driver'))
           .width(67)
           .height(67)
           .borderRadius(33.5)
@@ -70,7 +86,7 @@ struct My {
 
         Row() {
           Column() {
-            Text('18')
+            Text(this.userTaskInfo.taskAmounts?.toString() || '')
               .fontSize(18)
               .fontColor($r('app.color.text_primary'))
               .lineHeight(25)
@@ -82,7 +98,7 @@ struct My {
           }
 
           Column() {
-            Text('16')
+            Text(this.userTaskInfo.completedAmounts?.toString() || '')
               .fontSize(18)
               .fontColor($r('app.color.text_primary'))
               .lineHeight(25)
@@ -94,7 +110,7 @@ struct My {
           }
 
           Column() {
-            Text('3987')
+            Text(this.userTaskInfo.transportMileage?.toString() || '')
               .fontSize(18)
               .fontColor($r('app.color.text_primary'))
               .lineHeight(25)
