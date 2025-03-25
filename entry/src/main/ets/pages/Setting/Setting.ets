@@ -1,4 +1,5 @@
-import { ICard, ICardItem, IConfirm, INavBar } from 'basic';
+import { ICard, ICardItem, IConfirm, INavBar, UserSettingClass } from 'basic';
+import { router } from '@kit.ArkUI';
 
 @Entry
 @Component
@@ -8,11 +9,28 @@ struct Setting {
     builder: IConfirm({
       message: '确定要退出登录吗',
       buttonList: [{ text: '取消', fonColor: $r('app.color.text_primary') },
-        { text: '确定', fonColor: $r('app.color.primary') }]
+        {
+          text: '确定', fonColor: $r('app.color.primary'), action: () => {
+          this.logOut()
+        }
+        }]
     }),
     //去掉默认弹窗样式
     customStyle: true
   })
+
+  //退出登录
+  logOut() {
+    //删除token
+    const setting = new UserSettingClass(getContext())
+    setting.deleteUserToken()
+
+    //跳转登录页
+    router.replaceUrl({
+      url: 'pages/Login/Login'
+    })
+
+  }
 
   build() {
     Column() {
