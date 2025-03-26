@@ -32,7 +32,7 @@ export interface TaskListDataModel {
   counts: number;
 
   //数据列表
-  items: TaskListDataModel[];
+  items: TaskListItemDataModel[];
 
   // 页码
   page: number;
@@ -46,7 +46,7 @@ export interface TaskListDataModel {
 }
 
 //任务列表数据类型
-export interface TaskListDataItemDataModel {
+export interface TaskListItemDataModel {
   // 实际到达时间
   actualArrivalTime: string;
 

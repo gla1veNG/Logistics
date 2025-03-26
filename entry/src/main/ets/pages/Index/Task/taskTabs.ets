@@ -1,4 +1,5 @@
 import { TabClass } from 'basic'
+import TaskList from './TaskList'
 
 @Component
 export struct taskTabs {
@@ -44,7 +45,7 @@ export struct taskTabs {
 
 
             } else if (item.name === 'finish') {
-              
+
             }
           }.tabBar(item.title)
         })
