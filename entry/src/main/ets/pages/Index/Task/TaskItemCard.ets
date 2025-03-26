@@ -1,10 +1,15 @@
+import { TaskListItemDataModel } from '../../../models/task'
+
 @Component
 struct TaskItemCard {
+  @Prop
+  taskItem: TaskListItemDataModel = {} as TaskListItemDataModel
+
   build() {
     Column() {
       //任务编号
       Row() {
-        Text('任务编号:23213213213213')
+        Text(`任务编号:${this.taskItem.transportTaskId}`)
           .fontSize(16)
           .fontWeight(500)
           .lineHeight(22)
@@ -26,12 +31,12 @@ struct TaskItemCard {
           .textAlign(TextAlign.Center)
           .fontSize(12)
 
-        Text('广东省东莞市asdasdddddddddddddddddddddddddddddd')
+        Text(this.taskItem.startAddress)
           .fontSize(14)
           .margin({ left: 12 })
           .fontColor($r('app.color.text_primary'))
       }
-      .alignItems(VerticalAlign.Top)
+      .alignItems(VerticalAlign.Center)
       .width('100%')
       .margin({ top: 20 })
 
@@ -46,7 +51,7 @@ struct TaskItemCard {
           .textAlign(TextAlign.Center)
           .fontSize(12)
 
-        Text('广东省东莞市as')
+        Text(this.taskItem.endAddress)
           .fontSize(14)
           .margin({ left: 12 })
           .fontColor($r('app.color.text_primary'))
@@ -67,7 +72,7 @@ struct TaskItemCard {
           Text('提货时间')
             .fontSize(14)
             .fontColor($r('app.color.text_secondary'))
-          Text('2025.03.26 15：38')
+          Text(this.taskItem.planDepartureTime)
             .fontSize(14)
             .fontColor($r('app.color.text_primary'))
         }

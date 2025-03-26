@@ -31,12 +31,18 @@ struct TaskList {
   }
 
   build() {
-    Column() {
-      TaskItemCard()
+    List({ space: 10 }) {
+      ForEach(this.taskList, (item: TaskListItemDataModel) => {
+        ListItem() {
+          TaskItemCard({
+            taskItem: item
+          })
+        }
+      })
     }
     .width('100%')
     .height('100%')
-    .padding(20)
+    .padding(15)
     .backgroundColor($r('app.color.background_page'))
   }
 }
