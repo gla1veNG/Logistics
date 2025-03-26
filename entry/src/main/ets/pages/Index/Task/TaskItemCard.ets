@@ -79,10 +79,11 @@ struct TaskItemCard {
         .alignItems(HorizontalAlign.Start)
 
         Button('提货', { type: ButtonType.Capsule })
-          .backgroundColor($r('app.color.primary'))
+          .backgroundColor(this.taskItem.enablePickUp ? $r('app.color.primary') : $r('app.color.primary_disabled'))
           .fontSize(14)
           .fontColor($r('app.color.white'))
           .height(32)
+          .enabled(this.taskItem.enablePickUp)
       }
       .width('100%')
       .justifyContent(FlexAlign.SpaceBetween)
