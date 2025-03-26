@@ -1,5 +1,6 @@
 import { getTaskListApi } from '../../../api/task'
 import { TaskListDataModel, TaskListItemDataModel, TaskListParamModel, TaskTypeEnum } from '../../../models/task'
+import TaskItemCard from './TaskItemCard'
 
 
 @Component
@@ -31,8 +32,12 @@ struct TaskList {
 
   build() {
     Column() {
-      Text(JSON.stringify(this.taskList, null, 2))
+      TaskItemCard()
     }
+    .width('100%')
+    .height('100%')
+    .padding(20)
+    .backgroundColor($r('app.color.background_page'))
   }
 }
 

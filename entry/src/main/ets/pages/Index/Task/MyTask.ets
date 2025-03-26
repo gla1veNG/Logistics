@@ -1,4 +1,4 @@
-import { taskTabs } from './taskTabs'
+import { taskTabs } from './TaskTabs'
 
 @Component
 struct MyTask {
