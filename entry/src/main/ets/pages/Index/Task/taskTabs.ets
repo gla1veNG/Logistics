@@ -36,8 +36,16 @@ export struct taskTabs {
     Stack({ alignContent: Alignment.Top }) {
       Tabs({ controller: this.controlle, index: $$this.currentIndex }) {
         ForEach(this.tabsData, (item: TabClass) => {
+
           TabContent() {
-            Text(item.name)
+            if (item.name === 'waiting') {
+              TaskList()
+            } else if (item.name === 'line') {
+
+
+            } else if (item.name === 'finish') {
+              
+            }
           }.tabBar(item.title)
         })
       }
