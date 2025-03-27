@@ -19,6 +19,8 @@ struct TaskList {
   @State finished: boolean = false
   //创建一个变量，保存下拉刷新的状态
   @State refreshIng: boolean = false
+  //初始下来刷新状态值
+  @State refreshStatus: number = RefreshStatus.Inactive
 
   //请求任务列表数据的方法
   async onLoad() {
@@ -66,6 +68,25 @@ struct TaskList {
     .padding(10)
     .justifyContent(FlexAlign.Center)
   }
+  
+  //下拉刷新提示当前状态
+  getRefreshText() {
+    //如果下拉距离小于刷新距离，提示继续下拉
+    //如果下拉距离超过刷新距离，松手刷新
+    //如果当前状态是刷新中，正在刷新
+    switch (this.refreshStatus) {
+      case RefreshStatus.Inactive:
+        return ''
+      case RefreshStatus.Drag:
+        return '继续下拉'
+      case RefreshStatus.OverDrag:
+        return '松手刷新'
+      case RefreshStatus.Refresh:
+        return '正在刷新'
+      default:
+        return ''
+    }
+  }
 
   @Builder
   getRefreshBuilder() {
@@ -75,7 +96,7 @@ struct TaskList {
         .aspectRatio(1)
         .color($r('app.color.primary'))
 
-      Text('刷新中')
+      Text(this.getRefreshText())
         .fontSize(14)
         .fontColor($r('app.color.text_secondary'))
     }
@@ -111,6 +132,9 @@ struct TaskList {
         this.onLoad()
       })
     }
+    .onStateChange((state) => {
+      this.refreshStatus = state
+    })
   }
 }
 
