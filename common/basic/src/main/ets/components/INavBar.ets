@@ -5,6 +5,7 @@ export struct INavBar {
   title: string = '系统设置'
   showBackIcon: boolean = true
   backIcon: ResourceStr = $r('app.media.ic_btn_nav_back')
+  rightText: string = ''
 
   build() {
     Stack({ alignContent: Alignment.Start }) {
@@ -16,10 +17,15 @@ export struct INavBar {
             .fontWeight(600)
         }
       }
-
       .width('100%')
       .height('100%')
       .justifyContent(FlexAlign.Center)
+
+      Row() {
+        Text(this.rightText ? this.rightText : '')
+      }
+      .width('100%')
+      .justifyContent(FlexAlign.End)
 
       if (this.showBackIcon) {
         Image(this.backIcon)

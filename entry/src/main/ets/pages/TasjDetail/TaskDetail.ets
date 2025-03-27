@@ -1,5 +1,5 @@
 import { router } from '@kit.ArkUI';
-import { RouterParamsModel } from 'basic';
+import { INavBar, RouterParamsModel } from 'basic';
 import { getTaskDetailInfoApi } from '../../api/taskDetail';
 import { TaskDetailInfoModel } from '../../models';
 
@@ -32,7 +32,10 @@ struct TaskDetail {
   build() {
 
     Column() {
-      Text(JSON.stringify(this.taskDetailInfo, null, 2))
+      INavBar({
+        title: '任务详情',
+        rightText: '取消任务'
+      })
     }
     .height('100%')
     .width('100%')
