@@ -1,5 +1,5 @@
 import { router } from '@kit.ArkUI';
-import { INavBar, RouterParamsModel } from 'basic';
+import { INavBar, IToggleCard, RouterParamsModel } from 'basic';
 import { getTaskDetailInfoApi } from '../../api/taskDetail';
 import { TaskDetailInfoModel } from '../../models';
 
@@ -36,6 +36,7 @@ struct TaskDetail {
         title: '任务详情',
         rightText: '取消任务'
       })
+      IToggleCard()
     }
     .height('100%')
     .width('100%')
