@@ -2,7 +2,7 @@ import { TabClass } from 'basic'
 import TaskList from './TaskList'
 
 @Component
-export struct taskTabs {
+export struct TaskTabs {
   @State tabsData: TabClass[] = [
     { title: '待提货', name: 'waiting' },
     { title: '在途', name: 'line' },

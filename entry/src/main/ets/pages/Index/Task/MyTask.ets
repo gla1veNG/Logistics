@@ -1,10 +1,11 @@
-import { taskTabs } from './TaskTabs'
+import { TaskTabs } from './TaskTabs'
+
 
 @Component
 struct MyTask {
   build() {
     Column() {
-      taskTabs()
+      TaskTabs()
 
     }
     .width('100%')
