@@ -23,19 +23,19 @@ struct TaskList {
   @State refreshStatus: number = RefreshStatus.Inactive
 
   //请求任务列表数据的方法
-  async onLoad() {
+  async onLoad(flag?: boolean) {
     try {
       //将状态修改为上拉加载中
-      this.loading = true
       const res: TaskListDataModel = await getTaskListApi(this.queryParams)
+
+      //数据追加
+      flag ? this.taskList = res.items : this.taskList.push(...res.items)
 
       if (this.queryParams.page >= res.pages) {
         this.finished = true
       }
       //页面追加
       this.queryParams.page++
-      //数据追加
-      this.taskList.push(...res.items)
 
 
       //将状态修改为上拉加载结束
@@ -43,6 +43,13 @@ struct TaskList {
     } catch (e) {
       console.log('error', e)
     }
+  }
+
+  //下拉刷新方法
+  async onRefresh() {
+    this.queryParams.page = 1
+    this.finished = false
+    await this.onLoad(true)
   }
 
   @Builder
@@ -68,7 +75,7 @@ struct TaskList {
     .padding(10)
     .justifyContent(FlexAlign.Center)
   }
-  
+
   //下拉刷新提示当前状态
   getRefreshText() {
     //如果下拉距离小于刷新距离，提示继续下拉
@@ -132,8 +139,13 @@ struct TaskList {
         this.onLoad()
       })
     }
-    .onStateChange((state) => {
+    .onStateChange(async (state) => {
       this.refreshStatus = state
+      if (this.refreshStatus === RefreshStatus.Refresh) {
+        await this.onRefresh()
+        this.refreshIng = false
+      }
+
     })
   }
 }
