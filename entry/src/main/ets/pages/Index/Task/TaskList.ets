@@ -53,9 +53,21 @@ struct TaskList {
 
       ListItem() {
         Row() {
-          Text(this.finished ? '没有更多数据' : '数据加载中...')
-            .fontSize(12)
-            .fontColor($r('app.color.text_secondary'))
+          if (this.finished) {
+            Text('没有更多数据')
+              .fontSize(12)
+              .fontColor($r('app.color.text_secondary'))
+          } else {
+            LoadingProgress()
+              .width(20)
+              .aspectRatio(1)
+              .color($r('app.color.text_secondary'))
+
+            Text('数据加载中...')
+              .fontSize(12)
+              .fontColor($r('app.color.text_secondary'))
+          }
+
         }
         .width('100%')
         .padding(10)
