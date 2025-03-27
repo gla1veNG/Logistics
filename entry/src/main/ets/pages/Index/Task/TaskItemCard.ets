@@ -1,9 +1,17 @@
 import { TaskListItemDataModel } from '../../../models/task'
+import router from '@ohos.router'
 
 @Component
 struct TaskItemCard {
   @Prop
   taskItem: TaskListItemDataModel = {} as TaskListItemDataModel
+
+  toPickUp() {
+    router.pushUrl({
+      url: 'pages/TasjDetail/TaskDetail',
+      params: { id: this.taskItem.id }
+    })
+  }
 
   build() {
     Column() {
@@ -92,6 +100,9 @@ struct TaskItemCard {
     .backgroundColor($r('app.color.white'))
     .borderRadius(10)
     .padding(20)
+    .onClick(() => {
+      this.toPickUp()
+    })
   }
 }
 
