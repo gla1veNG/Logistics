@@ -1,5 +1,5 @@
 import { router } from '@kit.ArkUI';
-import { BaseBuilderClass, INavBar, IToggleCard, RouterParamsModel } from 'basic';
+import { BaseBuilderClass, INavBar, IToggleCard, IUpload, RouterParamsModel } from 'basic';
 import { getTaskDetailInfoApi } from '../../api/taskDetail';
 import { TaskDetailInfoModel } from '../../models';
 
@@ -202,46 +202,8 @@ struct TaskDetail {
 
           IToggleCard({ title: '物品信息', toggleCard: false })
           IToggleCard({ title: '提货信息', toggleCard: false }) {
-            Column() {
-              Text('请拍照上传回单凭证')
-                .fontSize(14)
-                .fontWeight(400)
-                .fontColor($r('app.color.text_secondary'))
-                .margin({ top: 16, bottom: 16 })
-
-              Row() {
-                Image($r('app.media.ic_add_img'))
-                  .width(30)
-                  .height(30)
-              }
-              .justifyContent(FlexAlign.Center)
-              .width(95)
-              .height(95)
-              .backgroundColor('#f2f2f2')
-            }
-            .width('100%')
-            .alignItems(HorizontalAlign.Start)
-
-            Column() {
-              Text('请拍照上传货品照片')
-                .fontSize(14)
-                .fontWeight(400)
-                .fontColor($r('app.color.text_secondary'))
-                .margin({ top: 16, bottom: 16 })
-
-
-              Row() {
-                Image($r('app.media.ic_add_img'))
-                  .width(30)
-                  .height(30)
-              }
-              .justifyContent(FlexAlign.Center)
-              .width(95)
-              .height(95)
-              .backgroundColor('#f2f2f2')
-            }
-            .width('100%')
-            .alignItems(HorizontalAlign.Start)
+            IUpload({ title: '请拍照上传回单凭证' })
+            IUpload({ title: '请拍照上传货品照片' })
           }
         }
 

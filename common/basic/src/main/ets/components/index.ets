@@ -12,5 +12,7 @@ export * from './IList'
 
 export * from './IToggleCard'
 
+export * from './IUpload'
+
 
 
