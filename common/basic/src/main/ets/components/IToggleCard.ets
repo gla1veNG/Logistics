@@ -2,11 +2,13 @@
 export struct IToggleCard {
   //true 展示基本信息，false 收起
   @State toggleCard: boolean = true
+  @BuilderParam CardContent: () => void
+  @State title: string = '基本信息'
 
   build() {
     Column() {
       Row() {
-        Text('基本信息')
+        Text(this.title)
           .fontSize(16)
           .fontColor($r('app.color.text_primary'))
           .fontWeight(600)
@@ -15,11 +17,18 @@ export struct IToggleCard {
           .width(24)
           .aspectRatio(1)
           .onClick(() => {
-            this.toggleCard = !this.toggleCard
+            animateTo({ duration: 300 }, () => {
+              this.toggleCard = !this.toggleCard
+            })
+
           })
       }
       .width('100%')
       .justifyContent(FlexAlign.SpaceBetween)
+
+      if (this.toggleCard && this.CardContent) {
+        this.CardContent()
+      }
 
     }
     .backgroundColor($r('app.color.white'))
