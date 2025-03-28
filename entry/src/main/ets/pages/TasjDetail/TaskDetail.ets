@@ -179,6 +179,30 @@ struct TaskDetail {
     })
   }
 
+  @Builder
+  getBottomBtn() {
+    Row() {
+      Button('延迟提货', { type: ButtonType.Capsule })
+        .width(125)
+        .height(50)
+        .fontSize(16)
+        .fontColor($r('app.color.text_primary'))
+        .backgroundColor($r('app.color.btn_gray'))
+      Button('提货')
+        .layoutWeight(1)
+        .height(50)
+        .fontSize(16)
+        .fontColor($r('app.color.white'))
+        .margin({ left: 15 })
+        .backgroundColor($r('app.color.primary_disabled'))
+    }
+    .justifyContent(FlexAlign.SpaceBetween)
+    .width('100%')
+    .height(70)
+    .padding({ left: 15, right: 15 })
+    .backgroundColor($r('app.color.white'))
+  }
+
   build() {
 
     Column() {
@@ -206,13 +230,13 @@ struct TaskDetail {
             IUpload({ title: '请拍照上传货品照片' })
           }
         }
-
-        .padding({ bottom: 50 })
       }
       .width('100%')
       .backgroundColor($r('app.color.background_page'))
+
+      this.getBottomBtn()
     }
-    .height('100%')
+    .layoutWeight(1)
     .width('100%')
     .backgroundColor($r('app.color.background_page'))
   }
