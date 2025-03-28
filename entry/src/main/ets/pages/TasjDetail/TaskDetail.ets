@@ -1,5 +1,5 @@
 import { router } from '@kit.ArkUI';
-import { INavBar, IToggleCard, RouterParamsModel } from 'basic';
+import { BaseBuilderClass, INavBar, IToggleCard, RouterParamsModel } from 'basic';
 import { getTaskDetailInfoApi } from '../../api/taskDetail';
 import { TaskDetailInfoModel } from '../../models';
 
@@ -61,7 +61,7 @@ struct TaskDetail {
         Row() {
           Text('起')
             .baseTextIconStyle()
-          Text('东莞市阿斯顿撒打算大苏打萨达萨达萨达S')
+          Text(this.taskDetailInfo.startAddress)
             .baseTextstyle()
         }
         .margin({ top: 21 })
@@ -71,7 +71,7 @@ struct TaskDetail {
           Text('止')
             .baseTextIconStyle()
             .backgroundColor($r('app.color.primary'))
-          Text('东莞市阿斯顿撒打算大苏打萨达萨达萨达S')
+          Text(this.taskDetailInfo.endAddress)
             .baseTextstyle()
         }
         .margin({ top: 15 })
@@ -102,24 +102,24 @@ struct TaskDetail {
 
     this.getBaseContentItem({
       title: '任务编号',
-      value: '21321312323312312323'
+      value: this.taskDetailInfo.transportTaskId
     })
     this.getBaseContentItem({
       title: '联系人',
-      value: '21321312323312312323'
+      value: this.taskDetailInfo.startHandoverName
     })
     this.getBaseContentItem({
       title: '联系电话',
-      value: '21321312323312312323',
+      value: this.taskDetailInfo.startHandoverPhone,
       icon: $r('app.media.ic_phone'),
     })
     this.getBaseContentItem({
       title: '提货时间',
-      value: '21321312323312312323'
+      value: this.taskDetailInfo.planDepartureTime
     })
     this.getBaseContentItem({
       title: '预计送达时间',
-      value: '21321312323312312323'
+      value: this.taskDetailInfo.planArrivalTime
     })
 
   }
@@ -129,12 +129,12 @@ struct TaskDetail {
   getDriverContent() {
     this.getBaseContentItem({
       title: '车牌号',
-      value: '12323213213213213213213'
+      value: this.taskDetailInfo.licensePlate
     })
 
     this.getBaseContentItem({
       title: '司机姓名',
-      value: '12323213213213213213213'
+      value: this.taskDetailInfo.driverName
     })
   }
 
@@ -143,12 +143,12 @@ struct TaskDetail {
   getTransLineContent() {
     Row() {
       Column() {
-        Text('2132132132131')
+        Text(this.taskDetailInfo.startProvince)
           .fontSize(16)
           .fontColor($r('app.color.text_primary'))
           .lineHeight(22)
           .fontWeight(600)
-        Text('2132132132131')
+        Text(this.taskDetailInfo.startCity)
           .fontSize(14)
           .lineHeight(22)
       }
@@ -158,12 +158,12 @@ struct TaskDetail {
         .width(36)
         .height(16)
       Column() {
-        Text('2132132132131')
+        Text(this.taskDetailInfo.endProvince)
           .fontSize(16)
           .fontColor($r('app.color.text_primary'))
           .lineHeight(22)
           .fontWeight(600)
-        Text('2132132132131')
+        Text(this.taskDetailInfo.endCity)
           .fontSize(14)
           .lineHeight(22)
       }.width(50)
@@ -234,8 +234,3 @@ function baseTextstyle() {
   .lineHeight(20)
 }
 
-interface BaseBuilderClass {
-  title: string
-  value: string
-  icon?: ResourceStr
-}
