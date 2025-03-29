@@ -1,4 +1,5 @@
 import { photoAccessHelper } from '@kit.MediaLibraryKit';
+import { IPreview } from '../../../../Index';
 import { ImageListModel } from '../models';
 
 @Component
@@ -7,6 +8,14 @@ export struct IUpload {
   @Prop maxNumber: number = 3
   //保存上传的图片
   @State imageList: ImageListModel[] = []
+  @State index: number = 0
+  customDialogController: CustomDialogController = new CustomDialogController({
+    builder: IPreview({
+      url: this.imageList.map((item: ImageListModel) => item.url),
+      selectIndex: this.index
+    }),
+    customStyle: true
+  })
 
   //弹出系统相册
   async selectImage() {
@@ -33,12 +42,16 @@ export struct IUpload {
         .margin({ top: 16, bottom: 16 })
 
       Grid() {
-        ForEach(this.imageList, (item: ImageListModel) => {
+        ForEach(this.imageList, (item: ImageListModel, index: number) => {
           GridItem() {
             Image(item.url)
               .width(95)
               .height(95)
               .borderRadius(5)
+              .onClick(() => {
+                this.customDialogController.open()
+                this.index = index
+              })
           }
         })
         if (this.imageList.length < 3) {

@@ -14,5 +14,7 @@ export * from './IToggleCard'
 
 export * from './IUpload'
 
+export * from './IPreview'
+
 
 
