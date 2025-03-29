@@ -1,5 +1,5 @@
 import { photoAccessHelper } from '@kit.MediaLibraryKit';
-import { IPreview } from '../../../../Index';
+import { IPreview, SaveLocalFile } from '../../../../Index';
 import { ImageListModel } from '../models';
 
 @Component
@@ -31,6 +31,11 @@ export struct IUpload {
       return { url: item } as ImageListModel
     })
     this.imageList.push(...data)
+
+
+    //将选择的图片存储到沙箱
+    SaveLocalFile(this.imageList)
+
   }
 
   build() {
@@ -54,7 +59,7 @@ export struct IUpload {
               })
           }
         })
-        if (this.imageList.length < 3) {
+        if (this.imageList?.length < 3) {
           GridItem() {
             Row() {
 
@@ -82,3 +87,5 @@ export struct IUpload {
     .alignItems(HorizontalAlign.Start)
   }
 }
+
+
