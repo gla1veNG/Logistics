@@ -1,7 +1,15 @@
-import { router } from '@kit.ArkUI';
-import { BaseBuilderClass, ImageListModel, INavBar, IToggleCard, IUpload, RouterParamsModel } from 'basic';
-import { getTaskDetailInfoApi } from '../../api/taskDetail';
-import { TaskDetailInfoModel } from '../../models';
+import { promptAction, router } from '@kit.ArkUI';
+import {
+  BaseBuilderClass,
+  ImageListModel,
+  INavBar,
+  IToggleCard,
+  IUpload,
+  RouterParamsModel,
+  SaveLocalFile
+} from 'basic';
+import { getTaskDetailInfoApi, pickUpApi } from '../../api/taskDetail';
+import { PickUpModel, TaskDetailInfoModel } from '../../models';
 import { TaskDetailSkeleton } from './Skeleton/TaskDetail-Skeleton';
 
 @Entry
@@ -10,6 +18,7 @@ struct TaskDetail {
   @State params: RouterParamsModel = {} as RouterParamsModel
   @State taskDetailInfo: TaskDetailInfoModel = {} as TaskDetailInfoModel
   @State skeletonStatus: boolean = false
+  @State queryParams: PickUpModel = {} as PickUpModel
 
   aboutToAppear(): void {
     this.getParamsData()
@@ -192,6 +201,27 @@ struct TaskDetail {
     }
   }
 
+  //提货
+  async submitPickUp() {
+    try {
+      this.queryParams.id = this.params.id
+      const cargoPickUpPictureList = await SaveLocalFile(this.taskDetailInfo.cargoPickUpPictureList)
+      const cargoPictureList = await SaveLocalFile(this.taskDetailInfo.cargoPictureList)
+      this.queryParams.cargoPickUpPictureList = cargoPickUpPictureList
+      this.queryParams.cargoPictureList = cargoPictureList
+      await pickUpApi(this.queryParams)
+
+      //重新获取任务详情数据
+      this.getTaskDetailInfo()
+
+      promptAction.showToast({
+        message: '提货成功'
+      })
+    } catch (e) {
+      console.log('error', e)
+    }
+  }
+
   @Builder
   getBottomBtn() {
     Row() {
@@ -209,6 +239,9 @@ struct TaskDetail {
         .margin({ left: 15 })
         .backgroundColor(this.getPickUPEnable() ? $r('app.color.primary') : $r('app.color.primary_disabled'))
         .enabled(this.getPickUPEnable())
+        .onClick(() => {
+          this.submitPickUp()
+        })
     }
     .justifyContent(FlexAlign.SpaceBetween)
     .width('100%')

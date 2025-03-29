@@ -1,4 +1,4 @@
-import { ImageListModel } from "basic";
+import { ImageListModel } from 'basic';
 
 export interface TaskDetailInfoModel {
   // 实际到达时间
@@ -101,5 +101,18 @@ export interface ExceptionListModel {
 
   // 处理结果
   handleResult: string;
+
+}
+
+
+export interface PickUpModel {
+  // 提货凭证照片数组
+  cargoPickUpPictureList: ImageListModel[];
+
+  // 提货照片数组
+  cargoPictureList: ImageListModel[];
+
+  // 司机作业id
+  id: string;
 
 }

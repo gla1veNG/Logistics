@@ -1,5 +1,5 @@
 import { photoAccessHelper } from '@kit.MediaLibraryKit';
-import { IPreview, SaveLocalFile } from '../../../../Index';
+import { IPreview } from '../../../../Index';
 import { ImageListModel } from '../models';
 
 @Component
@@ -34,11 +34,6 @@ export struct IUpload {
     })
     this.imageList.push(...data)
     this.onImageListChange(this.imageList)
-
-
-    //将选择的图片存储到沙箱
-    SaveLocalFile(this.imageList)
-
   }
 
   build() {
