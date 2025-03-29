@@ -116,3 +116,15 @@ export interface PickUpModel {
   id: string;
 
 }
+
+export interface deliverModel {
+  // 提货凭证照片数组
+  certificatePictureList: ImageListModel[];
+
+  // 提货照片数组
+  deliverPictureList: ImageListModel[];
+
+  // 司机作业id
+  id: string;
+
+}

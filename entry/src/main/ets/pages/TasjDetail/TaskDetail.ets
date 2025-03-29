@@ -8,8 +8,8 @@ import {
   RouterParamsModel,
   SaveLocalFile
 } from 'basic';
-import { getTaskDetailInfoApi, pickUpApi } from '../../api/taskDetail';
-import { PickUpModel, TaskDetailInfoModel, TaskTypeEnum } from '../../models';
+import { deliverApi, getTaskDetailInfoApi, pickUpApi } from '../../api/taskDetail';
+import { deliverModel, PickUpModel, TaskDetailInfoModel, TaskTypeEnum } from '../../models';
 import { TaskDetailSkeleton } from './Skeleton/TaskDetail-Skeleton';
 
 @Entry
@@ -19,6 +19,7 @@ struct TaskDetail {
   @State taskDetailInfo: TaskDetailInfoModel = {} as TaskDetailInfoModel
   @State skeletonStatus: boolean = false
   @State queryParams: PickUpModel = {} as PickUpModel
+  @State deliverParams: deliverModel = {} as deliverModel
 
   aboutToAppear(): void {
     this.getParamsData()
@@ -222,6 +223,25 @@ struct TaskDetail {
     }
   }
 
+  //交货
+  async submitDeliver() {
+    try {
+      this.deliverParams.id = this.params.id
+      this.deliverParams.deliverPictureList = this.taskDetailInfo.cargoPictureList
+      this.deliverParams.certificatePictureList = this.taskDetailInfo.cargoPickUpPictureList
+      await deliverApi(this.deliverParams)
+
+      //重新获取任务详情数据
+      this.getTaskDetailInfo()
+
+      promptAction.showToast({
+        message: '交货成功'
+      })
+    } catch (e) {
+      console.log('error', e)
+    }
+  }
+
   @Builder
   getBottomBtn() {
     if (this.taskDetailInfo.status === TaskTypeEnum.Waiting) {
@@ -266,7 +286,7 @@ struct TaskDetail {
           .backgroundColor(this.getPickUPEnable() ? $r('app.color.primary') : $r('app.color.primary_disabled'))
           .enabled(this.getPickUPEnable())
           .onClick(() => {
-            this.submitPickUp()
+            this.submitDeliver()
           })
       }
       .justifyContent(FlexAlign.SpaceBetween)
