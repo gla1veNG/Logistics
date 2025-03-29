@@ -232,8 +232,8 @@ struct TaskDetail {
 
             IToggleCard({ title: '物品信息', toggleCard: false })
             IToggleCard({ title: '提货信息', toggleCard: false }) {
-              IUpload({ title: '请拍照上传回单凭证' })
-              IUpload({ title: '请拍照上传货品照片' })
+              IUpload({ title: '请拍照上传回单凭证', imageList: this.taskDetailInfo.cargoPickUpPictureList || [] })
+              IUpload({ title: '请拍照上传货品照片', imageList: this.taskDetailInfo.cargoPictureList || [] })
             }
           }
           .padding({ bottom: 20 })

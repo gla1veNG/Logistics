@@ -7,7 +7,7 @@ export struct IUpload {
   @Prop title: string = ''
   @Prop maxNumber: number = 3
   //保存上传的图片
-  @State imageList: ImageListModel[] = []
+  @Prop imageList: ImageListModel[] = []
   @State index: number = 0
   customDialogController: CustomDialogController = new CustomDialogController({
     builder: IPreview({
