@@ -52,14 +52,24 @@ export struct IUpload {
       Grid() {
         ForEach(this.imageList, (item: ImageListModel, index: number) => {
           GridItem() {
-            Image(item.url)
-              .width(95)
-              .height(95)
-              .borderRadius(5)
-              .onClick(() => {
-                this.customDialogController.open()
-                this.index = index
-              })
+            Stack({ alignContent: Alignment.TopEnd }) {
+              Image(item.url)
+                .width(95)
+                .height(95)
+                .borderRadius(5)
+                .onClick(() => {
+                  this.customDialogController.open()
+                  this.index = index
+                })
+
+              Image($r('app.media.ic_btn_delete'))
+                .width(30)
+                .height(30)
+                .onClick(() => {
+                  this.imageList.splice(index, 1)
+                  this.onImageListChange(this.imageList)
+                })
+            }
           }
         })
         if (this.imageList?.length < 3) {
