@@ -90,7 +90,7 @@ export interface TaskListItemDataModel {
   startHandover: string;
 
   // 作业状态，作业状态，1为待提货）、2为在途）、3为改派）、4为已交付）、5为已作废
-  status: string;
+  status: number;
 
   // 运输任务id
   transportTaskId: string;

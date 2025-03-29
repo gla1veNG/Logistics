@@ -9,7 +9,7 @@ import {
   SaveLocalFile
 } from 'basic';
 import { getTaskDetailInfoApi, pickUpApi } from '../../api/taskDetail';
-import { PickUpModel, TaskDetailInfoModel } from '../../models';
+import { PickUpModel, TaskDetailInfoModel, TaskTypeEnum } from '../../models';
 import { TaskDetailSkeleton } from './Skeleton/TaskDetail-Skeleton';
 
 @Entry
@@ -224,30 +224,58 @@ struct TaskDetail {
 
   @Builder
   getBottomBtn() {
-    Row() {
-      Button('延迟提货', { type: ButtonType.Capsule })
-        .width(125)
-        .height(50)
-        .fontSize(16)
-        .fontColor($r('app.color.text_primary'))
-        .backgroundColor($r('app.color.btn_gray'))
-      Button('提货')
-        .layoutWeight(1)
-        .height(50)
-        .fontSize(16)
-        .fontColor($r('app.color.white'))
-        .margin({ left: 15 })
-        .backgroundColor(this.getPickUPEnable() ? $r('app.color.primary') : $r('app.color.primary_disabled'))
-        .enabled(this.getPickUPEnable())
-        .onClick(() => {
-          this.submitPickUp()
-        })
+    if (this.taskDetailInfo.status === TaskTypeEnum.Waiting) {
+      Row() {
+        Button('延迟提货', { type: ButtonType.Capsule })
+          .width(125)
+          .height(50)
+          .fontSize(16)
+          .fontColor($r('app.color.text_primary'))
+          .backgroundColor($r('app.color.btn_gray'))
+        Button('提货')
+          .layoutWeight(1)
+          .height(50)
+          .fontSize(16)
+          .fontColor($r('app.color.white'))
+          .margin({ left: 15 })
+          .backgroundColor(this.getPickUPEnable() ? $r('app.color.primary') : $r('app.color.primary_disabled'))
+          .enabled(this.getPickUPEnable())
+          .onClick(() => {
+            this.submitPickUp()
+          })
+      }
+      .justifyContent(FlexAlign.SpaceBetween)
+      .width('100%')
+      .height(70)
+      .padding({ left: 15, right: 15 })
+      .backgroundColor($r('app.color.white'))
+    } else if (this.taskDetailInfo.status === TaskTypeEnum.Line) {
+      Row() {
+        Button('异常上报', { type: ButtonType.Capsule })
+          .width(125)
+          .height(50)
+          .fontSize(16)
+          .fontColor($r('app.color.text_primary'))
+          .backgroundColor($r('app.color.btn_gray'))
+        Button('交货')
+          .layoutWeight(1)
+          .height(50)
+          .fontSize(16)
+          .fontColor($r('app.color.white'))
+          .margin({ left: 15 })
+          .backgroundColor(this.getPickUPEnable() ? $r('app.color.primary') : $r('app.color.primary_disabled'))
+          .enabled(this.getPickUPEnable())
+          .onClick(() => {
+            this.submitPickUp()
+          })
+      }
+      .justifyContent(FlexAlign.SpaceBetween)
+      .width('100%')
+      .height(70)
+      .padding({ left: 15, right: 15 })
+      .backgroundColor($r('app.color.white'))
     }
-    .justifyContent(FlexAlign.SpaceBetween)
-    .width('100%')
-    .height(70)
-    .padding({ left: 15, right: 15 })
-    .backgroundColor($r('app.color.white'))
+
   }
 
   build() {

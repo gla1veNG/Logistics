@@ -9,7 +9,7 @@ struct TaskList {
   //保存任务列表数据
   @State taskList: TaskListItemDataModel[] = []
   //任务列表接口传递的参数
-  @State queryParams: TaskListParamModel = {
+  @Prop queryParams: TaskListParamModel = {
     page: 1,
     pageSize: 5,
     status: TaskTypeEnum.Waiting

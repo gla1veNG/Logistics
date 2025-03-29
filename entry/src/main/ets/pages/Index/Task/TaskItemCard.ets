@@ -1,4 +1,4 @@
-import { TaskListItemDataModel } from '../../../models/task'
+import { TaskListItemDataModel, TaskTypeEnum } from '../../../models/task'
 import router from '@ohos.router'
 
 @Component
@@ -86,12 +86,21 @@ struct TaskItemCard {
         }
         .alignItems(HorizontalAlign.Start)
 
-        Button('提货', { type: ButtonType.Capsule })
-          .backgroundColor(this.taskItem.enablePickUp ? $r('app.color.primary') : $r('app.color.primary_disabled'))
-          .fontSize(14)
-          .fontColor($r('app.color.white'))
-          .height(32)
-          .enabled(this.taskItem.enablePickUp)
+        if (this.taskItem.status === TaskTypeEnum.Waiting) {
+          Button('提货', { type: ButtonType.Capsule })
+            .backgroundColor(this.taskItem.enablePickUp ? $r('app.color.primary') : $r('app.color.primary_disabled'))
+            .fontSize(14)
+            .fontColor($r('app.color.white'))
+            .height(32)
+            .enabled(this.taskItem.enablePickUp)
+        } else if (this.taskItem.status === TaskTypeEnum.Line) {
+          Button('交货', { type: ButtonType.Capsule })
+            .backgroundColor($r('app.color.primary'))
+            .fontSize(14)
+            .fontColor($r('app.color.white'))
+            .height(32)
+        }
+
       }
       .width('100%')
       .justifyContent(FlexAlign.SpaceBetween)
