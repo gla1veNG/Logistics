@@ -32,5 +32,5 @@ export const SaveLocalFile = async (dataSoure: ImageListModel[]) => {
     })
   })
 
-  const data = await uploadFile(getContext(), fileParams)
+  await uploadFile(getContext(), fileParams)
 }

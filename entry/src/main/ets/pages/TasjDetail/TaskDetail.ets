@@ -1,5 +1,5 @@
 import { router } from '@kit.ArkUI';
-import { BaseBuilderClass, INavBar, IToggleCard, IUpload, RouterParamsModel } from 'basic';
+import { BaseBuilderClass, ImageListModel, INavBar, IToggleCard, IUpload, RouterParamsModel } from 'basic';
 import { getTaskDetailInfoApi } from '../../api/taskDetail';
 import { TaskDetailInfoModel } from '../../models';
 import { TaskDetailSkeleton } from './Skeleton/TaskDetail-Skeleton';
@@ -183,6 +183,15 @@ struct TaskDetail {
     })
   }
 
+  //判断有没上传图片
+  getPickUPEnable() {
+    if (this.taskDetailInfo.cargoPickUpPictureList?.length > 0 && this.taskDetailInfo.cargoPictureList?.length > 0) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   @Builder
   getBottomBtn() {
     Row() {
@@ -198,7 +207,8 @@ struct TaskDetail {
         .fontSize(16)
         .fontColor($r('app.color.white'))
         .margin({ left: 15 })
-        .backgroundColor($r('app.color.primary_disabled'))
+        .backgroundColor(this.getPickUPEnable() ? $r('app.color.primary') : $r('app.color.primary_disabled'))
+        .enabled(this.getPickUPEnable())
     }
     .justifyContent(FlexAlign.SpaceBetween)
     .width('100%')
@@ -232,8 +242,20 @@ struct TaskDetail {
 
             IToggleCard({ title: '物品信息', toggleCard: false })
             IToggleCard({ title: '提货信息', toggleCard: false }) {
-              IUpload({ title: '请拍照上传回单凭证', imageList: this.taskDetailInfo.cargoPickUpPictureList || [] })
-              IUpload({ title: '请拍照上传货品照片', imageList: this.taskDetailInfo.cargoPictureList || [] })
+              IUpload({
+                title: '请拍照上传回单凭证',
+                imageList: this.taskDetailInfo.cargoPickUpPictureList || [],
+                onImageListChange: (imageList: ImageListModel[]) => {
+                  this.taskDetailInfo.cargoPickUpPictureList = imageList
+                }
+              })
+              IUpload({
+                title: '请拍照上传货品照片',
+                imageList: this.taskDetailInfo.cargoPictureList || [],
+                onImageListChange: (imageList: ImageListModel[]) => {
+                  this.taskDetailInfo.cargoPictureList = imageList
+                }
+              })
             }
           }
           .padding({ bottom: 20 })

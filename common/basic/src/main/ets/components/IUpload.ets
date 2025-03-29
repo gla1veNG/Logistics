@@ -16,6 +16,8 @@ export struct IUpload {
     }),
     customStyle: true
   })
+  onImageListChange: (imageList: ImageListModel[]) => void = () => {
+  }
 
   //弹出系统相册
   async selectImage() {
@@ -31,6 +33,7 @@ export struct IUpload {
       return { url: item } as ImageListModel
     })
     this.imageList.push(...data)
+    this.onImageListChange(this.imageList)
 
 
     //将选择的图片存储到沙箱
